@@ -1,0 +1,5 @@
+The file 3.txt contains:
+salut
+
+The file my-directory-list.txt contains:
+
