@@ -5,7 +5,7 @@ This script helps you find all files containing a pre-specified string inside a 
 You can try the script via your commandline with the following command:  
 
 ```  
-python files_with_str.py <path to a directory> <string to search for>
+$ python files_with_str.py <path to a directory> <string to search for>
 ```  
 
 #### example
