@@ -1,5 +1,5 @@
 # [files_with_str.py](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py)
-This [script](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py) helps you find all files containing a pre-specified string inside a choosen directory.
+This [script](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py) helps you find all files containing a pre-specified string inside a choosen directory. The script works only with python version 2.* for now.
 
 ## Quick start
 You can try the script via your commandline with the following command:  
@@ -33,6 +33,15 @@ You can also use it as a module in other programs. Functions available are:
 2. `get_files_with_str(path, search_str)` # returns an array of strings representing the full path to each file
 
 See [files_with_str.py](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py) for more details on each function.
+
+# Standard library modules utilized
+
+- datetime
+- mmap
+- os
+- re
+- sys
+- time
 
 # LICENSE 
 Copyright (c) 2016 Michel Moreau
