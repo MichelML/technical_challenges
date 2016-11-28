@@ -29,8 +29,10 @@ Program completed in 1.25089502335 seconds
 
 You can also use it as a module in other programs. Functions available are:
 
-1. log_files_with_str(path, search_str) # only logs each file to the console (see [example](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.md#example)) 
-2. get_files_with_str(path, search_str) # returns an array of strings representing the full path to each fileSee [files_with_str.py](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py)
+1. `log_files_with_str(path, search_str)` # only logs each file to the console (see [example](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.md#example)) 
+2. `get_files_with_str(path, search_str)` # returns an array of strings representing the full path to each file
+
+See [files_with_str.py](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py) for more details on each function.
 
 # LICENSE 
 Copyright (c) 2016 Michel Moreau
