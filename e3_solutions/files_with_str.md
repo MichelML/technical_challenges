@@ -1,5 +1,5 @@
-# files_with_str.py
-This script helps you find all files containing a pre-specified string inside a choosen directory.
+# [files_with_str.py](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py)
+This [script](https://github.com/MichelML/technical_challenges/blob/master/e3_solutions/files_with_str.py) helps you find all files containing a pre-specified string inside a choosen directory.
 
 ## Quick start
 You can try the script via your commandline with the following command:  
