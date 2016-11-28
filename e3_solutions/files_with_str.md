@@ -39,7 +39,7 @@ See [files_with_str.py](https://github.com/MichelML/technical_challenges/blob/ma
 # Standard library modules utilized
 
 - datetime
-- mmap
+- mmap (for better memory management)
 - os
 - re
 - sys
