@@ -1,0 +1,19 @@
+{
+  "name": "tech_challenges",
+  "version": "1.0.0",
+  "description": "A repo of technical challenges I have encountered along my web developer career",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichelML/technical_challenges.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichelML/technical_challenges/issues"
+  },
+  "homepage": "https://github.com/MichelML/technical_challenges#readme"
+}
