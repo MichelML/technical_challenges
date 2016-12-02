@@ -9,7 +9,6 @@ function AirportAnnouncer() {
   // ...
 }
 
-// Class
 function FlightService(dependencies) {
 
   this.dependencies = dependencies;
