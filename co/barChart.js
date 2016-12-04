@@ -4,8 +4,8 @@
  * design a function that will return the total fillable area units in the bar chart, or in other words, the sum
  * of all the concaves area in the bar chart.
  * Examples:
- * getTotalFillableArea() with a bar chart [5,1,1,5] as its argument should return 8
- * getTotalFillableArea() with a bar chart [5,1,8,3,9,2] as its argument should return 9
+ * getTotalFillableAreaUnits() with a bar chart [5,1,1,5] as its argument should return 8
+ * getTotalFillableAreaUnits() with a bar chart [5,1,8,3,9,2] as its argument should return 9
  * and so on...
  * See tests at line 68 for more examples
  */
