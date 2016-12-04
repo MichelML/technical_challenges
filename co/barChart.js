@@ -1,4 +1,4 @@
-/**
+/*
  * Problem:
  * Given a random bar chart represented by an array of numbers (be it numbers with or without decimals), 
  * design a function that will return the total fillable area units in the bar chart, or in other words, the sum
@@ -8,7 +8,7 @@
  * getTotalFillableArea() with a bar chart [5,1,8,3,9,2] as its argument should return 9
  * and so on...
  * See tests at line 50 for more examples
- **/
+ */
 
 /*
  * Strategy:
