@@ -1,21 +1,22 @@
+/** @constructor */
 const Node = function(node) {
   const self = this;
 
-  this.node = node;
+  self.node = node;
 
-  this.hasParent = () => {
+  self.hasParent = () => {
     return !!self.node.parentNode;
   };
 
-  this.hasChildren = () => {
+  self.hasChildren = () => {
     return !!self.node.childNodes.length;
   }
 
-  this.getParent = () => {
+  self.getParent = () => {
     return self.node.parentNode;
   };
 
-  this.getAllParents = () => {
+  self.getAllParents = () => {
     let parentNodes = [];
     let tempNode = self.node;
 
@@ -27,12 +28,12 @@ const Node = function(node) {
     return parentNodes;
   };
 
-  this.getChildren = () => {
+  self.getChildren = () => {
     return self.node.childrenNodes;
   };
 }
 
-
+/** @namespace */
 const DOM = {};
 /**
  * Find the closest ancestor of two html elements.
