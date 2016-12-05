@@ -42,6 +42,10 @@ const DOM = {};
  * @returns {Element | undefined}
  */
 DOM.closestCommonAncestor = (node1, node2) => {
+  if (!node1.getParent() || !node2.getParent()) {
+    return undefined;
+  }
+
   let ancestors1 = node1.getAllParents();
   let ancestors2 = node2.getAllParents();
 
