@@ -1,22 +1,54 @@
-// js implementation
-function parents(node) {
-  var nodes = [];
-  for (; node; node = node.parentNode) {
-    nodes.push(node);
-  }
-  return nodes;
-}
+const Node = function(node) {
+  const self = this;
 
-function commonAncestor(node1, node2) {
-  var parents1 = parents(node1);
-  var parents2 = parents(node2);
+  this.node = node;
 
-  for (var i = 0; i < parents1.length; i++) {
-    if (parents2.indexOf(parents1[i]) > -1) return parents1[i];
+  this.hasParent = () => {
+    return !!self.node.parentNode;
+  };
+
+  this.hasChildren = () => {
+    return !!self.node.childNodes.length;
   }
 
-  throw "No common ancestor!";
+  this.getParent = () => {
+    return self.node.parentNode;
+  };
+
+  this.getAllParents = () => {
+    let parentNodes = [];
+    let tempNode = self.node;
+
+    while (tempNode) {
+      tempNode = tempNode.parentNode;
+      parentNodes.push(tempNode);
+    }
+
+    return parentNodes;
+  };
+
+  this.getChildren = () => {
+    return self.node.childrenNodes;
+  };
 }
 
 
-// find wort case, best case, and average case time complexity of above algorithm
+const DOM = {};
+/**
+ * Find the closest ancestor of two html elements.
+ * @param {Node} node1
+ * @param {Node} node2
+ * @returns {Element | undefined}
+ */
+DOM.closestCommonAncestor = (node1, node2) => {
+  let ancestors1 = node1.getAllParents();
+  let ancestors2 = node2.getAllParents();
+
+  for (let i = 0; i < ancestors1.length; i++) {
+    if (ancestors2.indexOf(ancestors1[i] > -1)) {
+      return ancestors1[i];
+    }
+  }
+
+  return undefined;
+}
