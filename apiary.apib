@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://example.com
 
-# AB q4
+# AB
 
 ## Customers [/customers]
 
@@ -33,7 +33,7 @@ Create a new customer for the application.
                 "name": "customer's name",
                 "email": "customer's email",
                 "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
-                "url": "http://www.example.com/profile/{customer_id}
+                "url": "http://www.example.com/profile/{id}"
             }
 
 ### List all customers [GET]
@@ -68,7 +68,7 @@ List all customers.
                         "name": "customer's name",
                         "email": "customer's email",
                         "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
-                        "url": "http://www.example.com/profile/{customer_id}
+                        "url": "http://www.example.com/profile/{id}"
                     },
                     {
                         "id": 1897691876987, 
@@ -78,7 +78,7 @@ List all customers.
                         "name": "customer's new name",
                         "email": "customer's email",
                         "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
-                        "url": "http://www.example.com/profile/{customer_id}
+                        "url": "http://www.example.com/profile/{id}"
                     },
                     // ... and so on
                 ]
@@ -116,15 +116,15 @@ Update a customer's name for an existing customer.
                 "name": "customer's new name",
                 "email": "customer's email",
                 "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
-                "url": "http://www.example.com/profile/{customer_id}
+                "url": "http://www.example.com/profile/{id}"
             }
             
 + Response 404 (application/json;charset=UTF-8)
     
     + Headers
             
-            Location: http://www.example.com/users/{customer_id}        
-            Content-Location: http://www.example.com/users/{customer_id}
+            Location: http://www.example.com/users/{id}        
+            Content-Location: http://www.example.com/users/{id}
             
     + Body
     
@@ -136,8 +136,8 @@ Update a customer's name for an existing customer.
     
     + Headers
             
-            Location: http://www.example.com/users/{customer_id}        
-            Content-Location: http://www.example.com/users/{customer_id}
+            Location: http://www.example.com/users/{id}        
+            Content-Location: http://www.example.com/users/{id}
             
     + Body
     
@@ -178,7 +178,7 @@ Handle customer subscription to a _silver_, _gold_, or _platinum_ plan. The cust
                 "name": "customer's new name",
                 "email": "customer's email",
                 "plan": "customer's new plan", // customer's plan is updated
-                "url": "http://www.example.com/profile/{customer_id}
+                "url": "http://www.example.com/profile/{id}"
             }
             
 + Response 404 (application/json;charset=UTF-8)
