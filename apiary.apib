@@ -1,0 +1,204 @@
+FORMAT: 1A
+HOST: http://example.com
+
+# AB q4
+
+## Customers [/customers]
+
+### Create a new customer [POST]
+Create a new customer for the application.
+
++ Request (application/json;charset=UTF-8)
+
+        {
+            "name": "customer's name",
+            "email": "customer's email",
+            "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'"
+        }
+
++ Response 201 (application/json)
+    
+    + Headers
+            
+            Location: http://www.example.com/customers/{id}        
+            Content-Location: http://www.example.com/customers/{id}
+            
+    + Body
+    
+            {
+                "id": 1897691876987, // new customer's id
+                "created_at": "2016-11-11T08:40:51.620Z",
+                "last_visit": "2016-11-11T08:40:51.620Z",
+                "active": 1, // 1 is true, 0 is false
+                "name": "customer's name",
+                "email": "customer's email",
+                "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
+                "url": "http://www.example.com/profile/{customer_id}
+            }
+
+### List all customers [GET]
+List all customers.
+
++ Request
+        
+    + Headers
+            
+            Host: www.example.com
+        
++ Response 200 (application/json;charset=UTF-8)
+    
+    + Headers
+            
+
+    + Body
+    
+            {
+                "statistics": {
+                    "totalUsers": 98792387,
+                    "usersWithSubscription": 8457645,
+                    "active": 4786,
+                    // and so on...
+                }
+                "users": [
+                    {
+                        "id": 1897691876987,
+                        "created_at": "2016-11-11T08:40:51.620Z",
+                        "last_visit": "2016-11-11T08:40:51.620Z",
+                        "active": 0,
+                        "name": "customer's name",
+                        "email": "customer's email",
+                        "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
+                        "url": "http://www.example.com/profile/{customer_id}
+                    },
+                    {
+                        "id": 1897691876987, 
+                        "created_at": "2016-11-11T08:40:51.620Z",
+                        "last_visit": "2016-11-11T08:40:51.620Z",
+                        "active": 1, 
+                        "name": "customer's new name",
+                        "email": "customer's email",
+                        "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
+                        "url": "http://www.example.com/profile/{customer_id}
+                    },
+                    // ... and so on
+                ]
+            } 
+
+
+## Customer name updates [/users/{id}{?name}]
+### Update name of a customer [PATCH]
+Update a customer's name for an existing customer.
+
++ Parameters
+    + id - customer's id
+    + name - the propety to update, in this case __name__. Always set its value to 1.
+
++ Request (application/json;charset=UTF-8)
+        
+        {
+            "name": "customer's new name"
+        }
+        
++ Response 200 (application/json;charset=UTF-8)
+    
+    + Headers
+            
+            Location: http://www.example.com/users/{id}        
+            Content-Location: http://www.example.com/users/{id}
+            
+    + Body
+    
+            {
+                "id": 1897691876987,
+                "created_at": "2016-11-11T08:40:51.620Z",
+                "last_visit": "2016-11-11T08:40:51.620Z",
+                "active": 1,
+                "name": "customer's new name",
+                "email": "customer's email",
+                "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'",
+                "url": "http://www.example.com/profile/{customer_id}
+            }
+            
++ Response 404 (application/json;charset=UTF-8)
+    
+    + Headers
+            
+            Location: http://www.example.com/users/{customer_id}        
+            Content-Location: http://www.example.com/users/{customer_id}
+            
+    + Body
+    
+            {
+                "message": "customer does not exist"
+            }
+
++ Response 400 (application/json;charset=UTF-8)
+    
+    + Headers
+            
+            Location: http://www.example.com/users/{customer_id}        
+            Content-Location: http://www.example.com/users/{customer_id}
+            
+    + Body
+    
+            {
+                "message": "customer's name should contain at least 5 characters"
+            }
+            
+
+            
+## Customer plan updates [/users/{id}{?plan}]
+
+### Update plan of a customer [PATCH]
+Handle customer subscription to a _silver_, _gold_, or _platinum_ plan. The customer's plan property can also be set to _none_ if a plan subscription is cancelled or suspended temporarily. 
+
++ Parameters
+    + plan - The property to update, in this case __plan__. Always set its value to 1.
+
++ Request (application/json;charset=UTF-8)
+        
+        {
+            "plan": "customer's new plan",
+        }
+        
++ Response 200 (application/json;charset=UTF-8)
+    
+    + Headers
+            
+            Location: http://www.example.com/customers/{id}        
+            Content-Location: http://www.example.com/customers/{id}
+            
+    + Body
+    
+            {
+                "id": 1897691876987,
+                "created_at": "2016-11-11T08:40:51.620Z",
+                "last_visit": "2016-11-11T08:40:51.620Z",
+                "active": 1,
+                "name": "customer's new name",
+                "email": "customer's email",
+                "plan": "customer's new plan", // customer's plan is updated
+                "url": "http://www.example.com/profile/{customer_id}
+            }
+            
++ Response 404 (application/json;charset=UTF-8)
+    
+    + Headers
+            
+
+    + Body
+    
+            {
+                "message": "customer does not exist"
+            }
+
++ Response 400 (application/json;charset=UTF-8)
+    
+    + Headers
+            
+
+    + Body
+    
+            {
+                "message": "plan property must be set to either 'none', 'silver', 'gold', or 'platinum'"
+            }
