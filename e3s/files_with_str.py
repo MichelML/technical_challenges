@@ -37,11 +37,12 @@ def log_files_with_str(path, search_str):
         for file_name in files:
             file_count_total += 1
             file_path = os.path.join(root, file_name)
-            with open(file_path, 'r+b') as f:
-                map = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
-                if re.search(search_str, map, flags=re.I):
-                    file_count_with_str += 1
-                    print file_path
+            if os.stat(file_path).st_size > 0:
+              with open(file_path, 'r+b') as f:
+                  map = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
+                  if re.search(search_str, map, flags=re.I):
+                      file_count_with_str += 1
+                      print file_path
     if file_count_with_str == 0:
         print 'NONE'
 
@@ -57,10 +58,11 @@ def get_files_with_str(path, search_str):
     for (root, _, files) in os.walk(path):
         for file_name in files:
             file_path = os.path.join(root, file_name)
-            with open(file_path, 'r+b') as f:
-                map = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
-                if re.search(search_str, map, flags=re.I):
-                    files_with_str.append(file_path)
+            if os.stat(file_path).st_size > 0:
+              with open(file_path, 'r+b') as f:
+                  map = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
+                  if re.search(search_str, map, flags=re.I):
+                      files_with_str.append(file_path)
 
     return files_with_str
 
