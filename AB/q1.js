@@ -1,68 +1,102 @@
-// Dependencies
-function FlightRepository() {
-  // FlightRepo properties and methods
-  // ...
+const Dependencies = {};
+Dependencies.inject = function inject(instance, dependencies = []) {
+  if (!Array.isArray(dependencies)) {
+    throw "inject takes an array of key/value pair objects as a parameter";
+  }
+
+  instance.dependencies = instance.dependencies || {};
+  dependencies.forEach((dependency) => {
+    instance.dependencies[Object.keys(dependency)[0]] = dependency[Object.keys(dependency)[0]]; 
+  });
+};
+
+/* Dummy Object Constructors */
+function FlightRepository(value) { this.value = value; }
+const flightRepository = new FlightRepository(1);
+
+function AirportAnnouncer(value) { this.value = value; }
+const airportAnnouncer = new AirportAnnouncer(1);
+
+function Flight(id , time, departureOrArrival) { 
+  const self = this;
+  const typeOfFlight = departureOrArrival;
+
+  self.id = id; 
+  self.time = time;  
+
+  self.isDeparture = () => {
+    return (departureOrArrival === "departure") ? true : false;
+  };
+
+  self.delay = (newTime) => {
+    self.departureTime = newTime;
+  };
 }
 
-function AirportAnnouncer() {
-  // AirportAnnoucer properties and methods
-  // ...
-}
-
+/* Half-dummy object constructor */
 function FlightService(dependencies) {
+  const self = this;
 
-  this.dependencies = dependencies;
+  Dependencies.inject(self, dependencies);
 
-  this.delayFlight = (flight, newTime) => {
+  self.delayFlight = (flight, newTime) => {
     flight.delay(newTime);
 
-    flightRepository = new this.dependencies.FlightRepository();
-    flightRepository.persist(flight);
+    self.dependencies.flightRepository.persist(flight);
     if (flight.isDeparture()) {
-      announcer = new this.dependencies.AirportAnnouncer();
-      announcer.announceTimeChanged(flight);
+      self.dependencies.announcer.announceTimeChanged(flight);
     }
-  }
+  };
 }
 
-// instance of class with dependency injection
-flightService = new FlightService({
-  FlightRepository: FlightRepository,
-  AirportAnnouncer: AirportAnnouncer
-});
-
-// Test suits
-describe('Flight', () => {
-  // test that class Flight exist
-  // test if the class has method delay,
-  // test if the method modifies the time of a flight object to a new time in the future
-  // test if the class has method isDeparture
-  // test if the method isDeparture returns a boolean according to different possible scenarios
-});
-
-describe('FlightRepository', () => {
-  // test that class FlightRepository exists
-  // test if the Class has method persist
-});
-
-
-describe('AirportAnnouncer', () => {
-  // test if class AirportAnnouncer exists
-  // test if the class method announceTimeChanged
-  // test if the flight time has been properly announced according to different possible scenarios
-});
+// instance of FlightService with dependency injection
+const flightService = new FlightService([ { flightRepository }, { airportAnnouncer } ]);
 
 describe('FlightService', () => {
-  // test that class FlightService exist
+  let flightService
+  let flight;
+  let announcer;
+  let flightRepository;
+  let dateInTheFuture;
+
+  beforeEach(() => {
+   flightService = new FlightService([ {flightRepository}, {airportAnnouncer}]);
+   flightRepository = new FlightRepository();
+   announcer = new AirportAnnouncer();
+   flight = new Flight("932408750329", new Date(), "departure");
+   dateInTheFuture = new Date(flight.time * 1000*60*60);
+  });
 
   describe('delayFlight method', () => {
-    // test that delay flight exist
-    // the most important things that should be tested in this method is
-    // 1) if the flight.delay(newTime) has changed the time of the flight correctly after invocation
-    // 2) if the flight information is updated properly in the flightRepository and flightRepository.persist is called
-    // 3) if the announcer.announceTimeChanged(flight) has announced the new flight time properly according to the business logic
-    // We could design different scenarios to test these three things in our test suite
-    // The other parts of the function should be tested in other test suits, namely in the Flight, FlightRepository, and AirportAnnouncer suits 
+    it('exists as a function', () => {
+      expect(typeof flightService.delayFlight === "function").toBe(true);
+    });
+
+    it('delays time of a flight', () => {
+     let oldDepartureTime = flight.time;
+     flightService.delayFlight(flight, dateInTheFuture);
+     expect(flight.time > oldDepartureTime).toBe(true);
+    });
+
+    it('updates the flight in the flightRepository', () => {
+     let oldDepartureTime = flight.time;
+     flightService.delayFlight(flight, dateInTheFuture);
+     expect(flightRepository.get(flight.id).time > oldDepartureTime).toBe(true);
+    });
+
+    it('announces the new time of a flight if the latter is a departure flight', () => {
+     let oldTimeAnnounced = announcer.getCurentTimeAnnounced(flight.id);
+     flightService.delayFlight(flight, dateInTheFuture);
+     let newTimeAnnounced = announcer.getCurentTimeAnnounced(flight.id);
+     expect(newTimeAnnounced > oldTimeAnnounced).toBe(true);
+    });
+
+    it('does not change the announced time of flight if the latter is an arrival flight', () => {
+     flight = new Flight("932408750329", new Date(), "arrival");
+     let oldTimeAnnounced = announcer.getCurentTimeAnnounced(flight.id);
+     flightService.delayFlight(flight, dateInTheFuture);
+     let newTimeAnnounced = announcer.getCurentTimeAnnounced(flight.id);
+     expect(newTimeAnnounced === oldTimeAnnounced).toBe(true);
+    });
   });
 });
-
