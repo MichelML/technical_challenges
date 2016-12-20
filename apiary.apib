@@ -110,7 +110,7 @@ List all customers.
             } 
 
 
-## Customer name updates [/users/{id}{?name}]
+## Customer name updates [/customers/{id}{?name}]
 ### Update name of a customer [PATCH]
 Update a customer's name for an existing customer.
 
@@ -140,7 +140,7 @@ Update a customer's name for an existing customer.
             Access-Control-Allow-Credentials: true
             Access-Control-Allow-Origin: http://www.example.com
             Cache-Control:no-cache, no-store, must-revalidate, private
-            Content-Location: http://www.example.com/users/{id}
+            Content-Location: http://www.example.com/customers/{id}
             Content-Encoding: gzip
             Connection: close
             Server: ArcBees Cloud            
@@ -194,7 +194,7 @@ Update a customer's name for an existing customer.
             
 
             
-## Customer plan updates [/users/{id}{?plan}]
+## Customer plan updates [/customers/{id}{?plan}]
 
 ### Update plan of a customer [PATCH]
 Handle customer subscription to a _silver_, _gold_, or _platinum_ plan. The customer's plan property can also be set to _none_ if a plan subscription is cancelled or suspended temporarily. 
