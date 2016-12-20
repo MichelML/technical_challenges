@@ -1,3 +1,4 @@
+// A)
 const Dependencies = {};
 Dependencies.inject = function inject(instance = {}, dependencies = []) {
     if (typeof instance !== "object") {
@@ -18,11 +19,13 @@ Dependencies.inject = function inject(instance = {}, dependencies = []) {
 function FlightRepository(value) {
     this.value = value;
 }
+
 const flightRepository = new FlightRepository(1);
 
 function AirportAnnouncer(value) {
     this.value = value;
 }
+
 const airportAnnouncer = new AirportAnnouncer(1);
 
 function Flight(id, time, departureOrArrival) {
@@ -33,7 +36,7 @@ function Flight(id, time, departureOrArrival) {
     self.time = time;
 
     self.isDeparture = () => {
-        return (departureOrArrival === "departure") ? true : false;
+        return (typeOfFlight === "departure") ? true : false;
     };
 
     self.delay = (newTime) => {
@@ -41,7 +44,6 @@ function Flight(id, time, departureOrArrival) {
     };
 }
 
-/** Half-dummy object constructor **/
 function FlightService(dependencies) {
     const self = this;
 
@@ -51,6 +53,7 @@ function FlightService(dependencies) {
         flight.delay(newTime);
 
         self.dependencies.flightRepository.persist(flight);
+
         if (flight.isDeparture()) {
             self.dependencies.announcer.announceTimeChanged(flight);
         }
@@ -60,8 +63,11 @@ function FlightService(dependencies) {
 // instance of FlightService with dependency injection
 const flightService = new FlightService([{ flightRepository }, { airportAnnouncer }]);
 
-describe('FlightService', () => {
-    let flightService
+// =================END OF A), START OF B)==============
+
+// B)
+describe("FlightService", () => {
+    let flightService;
     let flight;
     let announcer;
     let flightRepository;
@@ -73,33 +79,38 @@ describe('FlightService', () => {
         announcer = new AirportAnnouncer();
         flight = new Flight("932408750329", new Date(), "departure");
         dateInTheFuture = new Date(flight.time * 1000 * 60 * 60);
+        dateInThePast = new Date(flight.time - 1000);
     });
 
-    describe('delayFlight method', () => {
-        it('exists as a function', () => {
+    describe("delayFlight method", () => {
+        it("exists as a function", () => {
             expect(typeof flightService.delayFlight === "function").toBe(true);
         });
 
-        it('delays time of a flight', () => {
+        it("delays time of a flight if the new time is in the future", () => {
             let oldDepartureTime = flight.time;
             flightService.delayFlight(flight, dateInTheFuture);
             expect(flight.time > oldDepartureTime).toBe(true);
         });
 
+        it("throws an error if the new time is in the past", () => {
+            expect(flightService.delayFlight(flight, dateInThePast)).toThrow();
+        });
+
         it('updates the flight in the flightRepository', () => {
             let oldDepartureTime = flight.time;
             flightService.delayFlight(flight, dateInTheFuture);
-            expect(flightRepository.get(flight.id).time > oldDepartureTime).toBe(true);
+            expect(flightRepository.getFlight(flight.id).time > oldDepartureTime).toBe(true);
         });
 
-        it('announces the new time of a flight if the latter is a departure flight', () => {
+        it("announces the new time of a flight if the latter is a departure flight", () => {
             let oldTimeAnnounced = announcer.getCurentTimeAnnounced(flight.id);
             flightService.delayFlight(flight, dateInTheFuture);
             let newTimeAnnounced = announcer.getCurentTimeAnnounced(flight.id);
             expect(newTimeAnnounced > oldTimeAnnounced).toBe(true);
         });
 
-        it('does not change the announced time of flight if the latter is an arrival flight', () => {
+        it("does not change the announced time of flight if the latter is an arrival flight", () => {
             flight = new Flight("932408750329", new Date(), "arrival");
             let oldTimeAnnounced = announcer.getCurentTimeAnnounced(flight.id);
             flightService.delayFlight(flight, dateInTheFuture);
@@ -108,3 +119,10 @@ describe('FlightService', () => {
         });
     });
 });
+
+// =================END OF B)==============
+
+// C)
+// see q1c.md
+
+
