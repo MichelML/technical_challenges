@@ -23,7 +23,6 @@ function consecSum(n) {
   for (let i = loopStart; i > 0; i--) {
     for (let j = i - 1; j > 0; j--) {
       if (((j+i)/2 * (i - j + 1)) === n) {
-        console.log(j + ' to ' + i);
         count++;
         break;
       }
