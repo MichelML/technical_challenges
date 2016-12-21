@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://example.com
 
-# AB
+# API design  
 
 ## Customers [/customers]
 
@@ -10,18 +10,32 @@ Create a new customer for the application.
 
 + Request (application/json;charset=UTF-8)
 
-        {
-            "name": "customer's name",
-            "email": "customer's email",
-            "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'"
-        }
-
-+ Response 201 (application/json)
-    
     + Headers
             
-            Location: http://www.example.com/customers/{id}        
+            Accept-Encoding: gzip, deflate
+            Accept-Language: fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4
+            Authorization: somekind of authorization
+            Connection: close
+            
+    + Body
+    
+            {
+                "name": "customer's name",
+                "email": "customer's email",
+                "plan": "customer's plan, either 'none', 'silver', 'gold', 'platium'"
+            }
+
++ Response 201 (application/json;charset=utf-8)
+    
+    + Headers
+    
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
             Content-Location: http://www.example.com/customers/{id}
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud
             
     + Body
     
@@ -42,13 +56,24 @@ List all customers.
 + Request
         
     + Headers
-            
-            Host: www.example.com
+    
+            Accept-Encoding: gzip, deflate
+            Accept-Language: fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4
+            Authorization: somekind of authorization
+            Connection: close 
+
         
 + Response 200 (application/json;charset=UTF-8)
     
     + Headers
-            
+    
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
+            Content-Location: http://www.example.com/customers/all
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud
 
     + Body
     
@@ -85,7 +110,7 @@ List all customers.
             } 
 
 
-## Customer name updates [/users/{id}{?name}]
+## Customer name updates [/customers/{id}{?name}]
 ### Update name of a customer [PATCH]
 Update a customer's name for an existing customer.
 
@@ -94,18 +119,32 @@ Update a customer's name for an existing customer.
     + name - the propety to update, in this case __name__. Always set its value to 1.
 
 + Request (application/json;charset=UTF-8)
-        
-        {
-            "name": "customer's new name"
-        }
+
+    + Headers
+    
+            Accept-Encoding: gzip, deflate
+            Accept-Language: fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4
+            Authorization: somekind of authorization
+            Connection: close
+            
+    + Body
+    
+            {
+                "name": "customer's new name"
+            }
         
 + Response 200 (application/json;charset=UTF-8)
     
     + Headers
-            
-            Location: http://www.example.com/users/{id}        
-            Content-Location: http://www.example.com/users/{id}
-            
+    
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
+            Content-Location: http://www.example.com/customers/{id}
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud            
+
     + Body
     
             {
@@ -123,8 +162,12 @@ Update a customer's name for an existing customer.
     
     + Headers
             
-            Location: http://www.example.com/users/{id}        
-            Content-Location: http://www.example.com/users/{id}
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud
             
     + Body
     
@@ -136,8 +179,12 @@ Update a customer's name for an existing customer.
     
     + Headers
             
-            Location: http://www.example.com/users/{id}        
-            Content-Location: http://www.example.com/users/{id}
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud
             
     + Body
     
@@ -147,27 +194,42 @@ Update a customer's name for an existing customer.
             
 
             
-## Customer plan updates [/users/{id}{?plan}]
+## Customer plan updates [/customers/{id}{?plan}]
 
 ### Update plan of a customer [PATCH]
 Handle customer subscription to a _silver_, _gold_, or _platinum_ plan. The customer's plan property can also be set to _none_ if a plan subscription is cancelled or suspended temporarily. 
 
 + Parameters
+    + id - customer's id
     + plan - The property to update, in this case __plan__. Always set its value to 1.
 
 + Request (application/json;charset=UTF-8)
-        
-        {
-            "plan": "customer's new plan",
-        }
+
+    + Headers
+            
+            Accept-Encoding: gzip, deflate
+            Accept-Language: fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4
+            Authorization: somekind of authorization
+            Connection: close
+            
+    + Body
+            
+            {
+                "plan": "customer's new plan",
+            }
         
 + Response 200 (application/json;charset=UTF-8)
     
     + Headers
-            
-            Location: http://www.example.com/customers/{id}        
+    
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
             Content-Location: http://www.example.com/customers/{id}
-            
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud             
+
     + Body
     
             {
@@ -177,14 +239,20 @@ Handle customer subscription to a _silver_, _gold_, or _platinum_ plan. The cust
                 "active": 1,
                 "name": "customer's new name",
                 "email": "customer's email",
-                "plan": "customer's new plan", // customer's plan is updated
-                "url": "http://www.example.com/profile/{id}"
+                "plan": "customer's new plan",
+                "url": "http://www.example.com/customers/{id}"
             }
             
 + Response 404 (application/json;charset=UTF-8)
     
     + Headers
-            
+    
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud            
 
     + Body
     
@@ -195,7 +263,13 @@ Handle customer subscription to a _silver_, _gold_, or _platinum_ plan. The cust
 + Response 400 (application/json;charset=UTF-8)
     
     + Headers
-            
+    
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Origin: http://www.example.com
+            Cache-Control:no-cache, no-store, must-revalidate, private
+            Content-Encoding: gzip
+            Connection: close
+            Server: ArcBees Cloud            
 
     + Body
     
