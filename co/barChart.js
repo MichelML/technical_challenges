@@ -13,7 +13,7 @@
 /*
  * Strategy:
  * Look for largest fillable hole starting at position i for every position in barChart until barChart.length - 2 is evaluated inclusively
- * if a fillable hole is found, add fillable area units of hole to totalFillableAreaUnits count, 
+ * if a fillable hole is found at position i, add fillable area units of hole to totalFillableAreaUnits count, 
  * and continue evaluation while skipping the evaluation of positions inside current fillable hole (positions i+1 to holeEnd-1)
  */
 
