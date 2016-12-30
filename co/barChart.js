@@ -2,7 +2,7 @@
  * Problem:
  * Given a random bar chart represented by an array of numbers (be it numbers with or without decimals), 
  * design a function that will return the total fillable area units in the bar chart, or in other words, the sum
- * of all the concaves area in the bar chart.
+ * of all concaves area in the bar chart.
  * Examples:
  * getTotalFillableAreaUnits() with a bar chart [5,1,1,5] as its argument should return 8
  * getTotalFillableAreaUnits() with a bar chart [5,1,8,3,9,2] as its argument should return 9
